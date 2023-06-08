@@ -45,8 +45,10 @@ func (sp *SqlParams) commonTruncate(statement string) error {
 	if _, err := sp.dataSource.ExecContext(sp.ctx, statement); err != nil {
 		return mapError(err)
 	}
-	if _, err := sp.dataSource.ExecContext(sp.ctx, statement); err != nil {
-		return mapError(err)
+	// TODO: repeated code, please remove
+	if _, err2 := sp.dataSource.ExecContext(sp.ctx, statement); err != nil {
+		// FIXME: remove this: Just adding more changes here.
+		return mapError(err2)
 	}
 	
 	return nil
